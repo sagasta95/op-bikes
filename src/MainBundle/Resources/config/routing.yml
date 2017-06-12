@@ -33,3 +33,15 @@ administracion_remove_category:
 administracion_edit_category:
     path:     /administracion/category/edit/{id}
     defaults: { _controller: MainBundle:Administracion:editCategory }
+    
+administracion_new_product:
+    path:     /administracion/product/new
+    defaults: { _controller: MainBundle:Administracion:newProduct }
+    
+administracion_remove_product:
+    path:     /administracion/product/remove/{id}
+    defaults: { _controller: MainBundle:Administracion:removeProduct }
+    
+administracion_edit_product:
+    path:     /administracion/product/edit/{id}
+    defaults: { _controller: MainBundle:Administracion:editProduct }

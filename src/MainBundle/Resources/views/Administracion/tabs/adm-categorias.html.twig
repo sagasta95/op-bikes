@@ -1,0 +1,42 @@
+<div id="adm-cat" class="tab-pane fade">
+    <div class="col-lg-12">
+        <h3>Administración de categorías</h3>
+    </div>
+    <div class="col-md-9"  style="padding: 20px; margin-bottom: 30px;">
+        <table class="col-md-12 table table-hover">
+            <thead>
+            <th>Nombre</th>
+            <th>Creado por</th>
+            <th style="width: 50px;"></th>
+            <th style="width: 50px;">
+                <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#add-category" style="margin-top: 20px;"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    {{ include('MainBundle:Administracion:modal/add-category.html.twig') }}
+            </th>
+            </thead>
+            <tbody>
+                {% if categorias is not empty %}
+                    {% for c in categorias %}
+                        <tr>
+                            <td style="vertical-align: middle;">{{c.nombre}}</td>
+                            <td style="vertical-align: middle;">
+                                {% if c.createdby %}
+                                    {{c.createdby.username }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td><button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#edit-category-{{ c.id }}"><span class="glyphicon glyphicon-pencil" ></button></td>
+                                {{ render(controller('MainBundle:Administracion:renderModalEditCategory', { 'id': c.id })) }}
+                            <td><button type="button" class="btn btn-danger btn-blok" data-toggle="modal" data-target="#remove-category-{{ c.id }}"><span class="glyphicon glyphicon-trash"></button></td>
+                                {{ render(controller('MainBundle:Administracion:renderModalRemoveCategory', { 'id': c.id })) }}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No hay categorias</td>
+                    </tr>
+                {% endif%}
+            </tbody>
+        </table>
+    </div>
+</div>

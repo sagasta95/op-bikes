@@ -1,0 +1,54 @@
+<div id="adm-products" class="tab-pane fade">
+    <div class="col-lg-12">
+        <h3>Administración de productos</h3>
+    </div>
+    <div class="col-md-9"  style="padding: 20px; margin-bottom: 30px;">
+        <table class="col-md-12 table table-hover">
+            <thead>
+            <th></th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Creado por</th>
+            <th>Creación</th>
+            <th>Actualización</th>
+            <th style="width: 50px;"></th>
+            <th style="width: 50px;">
+                <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#add-product" style="margin-top: 20px;"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    {{ include('MainBundle:Administracion:modal/add-product.html.twig') }}
+            </th>
+            </thead>
+            <tbody>
+                {% if productos['en_venta'] is not empty %}
+                    {% for c in productos['en_venta'] %}
+                        <tr>
+                            <td style="vertical-align: middle;"></td>
+                            <td style="vertical-align: middle;">{{c.nombre}}</td>
+                            <td style="vertical-align: middle;">{{c.category}}</td>
+                            <td style="vertical-align: middle;">
+                                {% if c.createdby %}
+                                    {{c.createdby.username }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td style="vertical-align: middle;">{{c.createdat | date('d-m-Y')}}</td>
+                            <td style="vertical-align: middle;">
+                                {% if c.updatedat %}
+                                    {{c.updatedat | date('d-m-Y')}}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ path('administracion_edit_product', { 'id': c.id })}}" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+                            <td><a href="{{ path('administracion_remove_product', { 'id': c.id } ) }}" class="btn btn-danger btn-blok"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No hay productos en venta</td>
+                    </tr>
+                {% endif%}
+            </tbody>
+        </table>
+    </div>
+</div>

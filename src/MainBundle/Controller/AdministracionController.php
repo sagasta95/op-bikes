@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use MainBundle\Form\UserFormType;
 use MainBundle\Form\CategoryFormType;
+use MainBundle\Form\NewProductFormType;
 use MainBundle\Entity\Category;
 use MainBundle\Entity\User;
+use MainBundle\Entity\Product;
 
 class AdministracionController extends Controller {
 
@@ -16,20 +18,31 @@ class AdministracionController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
+        $productos = array();
         $usuarios = $em->getRepository('MainBundle:User')->findAll();
         $categorias = $em->getRepository('MainBundle:Category')->findAll();
+        $productos['en_venta'] = $em->createQueryBuilder()
+                ->select('p')
+                ->from('MainBundle:Product', 'p')
+                ->where('p.buy_at is null')
+                ->getQuery()
+                ->getResult();
 
         $category = new Category();
         $user = new User();
+        $product = new Product();
 
         $form_cat = $this->createForm('MainBundle\Form\CategoryFormType', $category);
         $form_user = $this->createForm('MainBundle\Form\NewUserFormType', $user);
+        $form_product = $this->createForm('MainBundle\Form\NewProductFormType', $product);
 
         return $this->render('MainBundle:Administracion:index.html.twig', array(
                     'usuarios' => $usuarios,
                     'categorias' => $categorias,
+                    'productos' => $productos,
                     'form_cat' => $form_cat->createView(),
-                    'form_user' => $form_user->createView()
+                    'form_user' => $form_user->createView(),
+                    'form_product' => $form_product->createView()
         ));
     }
 
@@ -69,6 +82,16 @@ class AdministracionController extends Controller {
         ));
     }
 
+    public function renderModalRemoveProductAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('MainBundle:Product')->find($id);
+
+        return $this->render('MainBundle:Administracion:modal/remove-product.html.twig', array(
+                    'producto2' => $product,
+        ));
+    }
+
     public function renderModalRemoveUserAction($id) {
         $em = $this->getDoctrine()->getManager();
 
@@ -101,6 +124,19 @@ class AdministracionController extends Controller {
         $em->flush();
 
         $this->get('session')->getFlashBag()->add('notice', 'Usuario eliminado con exito');
+
+        return $this->redirect($this->generateUrl('administracion_show'));
+    }
+
+    public function removeProductAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('MainBundle:Product')->find($id);
+
+        $em->remove($product);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('notice', 'Producto eliminado con exito');
 
         return $this->redirect($this->generateUrl('administracion_show'));
     }
@@ -184,6 +220,30 @@ class AdministracionController extends Controller {
         return $this->redirect($this->generateUrl('administracion_show'));
     }
 
+    public function newProductAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = new Product();
+
+        $form = $this->createForm('MainBundle\Form\NewProductFormType', $product);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setCreatedBy($this->getUser());
+            $product->setCreatedAt(new \DateTime());
+
+            $em->persist($product);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('notice', 'Producto creado con exito');
+
+            return $this->redirect($this->generateUrl('administracion_show'));
+        }
+        return $this->redirect($this->generateUrl('administracion_show'));
+    }
+
     public function editCategoryAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
@@ -203,6 +263,32 @@ class AdministracionController extends Controller {
             return $this->redirect($this->generateUrl('administracion_show'));
         }
         return $this->redirect($this->generateUrl('administracion_show'));
+    }
+    
+    public function editProductAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('MainBundle:Product')->find($id);
+
+        $form = $this->createForm('MainBundle\Form\EditProductFormType', $product);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setUpdatedAt(new \DateTime());
+            $em->persist($product);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('notice', 'Producto modificado con exito');
+
+            return $this->redirect($this->generateUrl('administracion_show'));
+        }
+        
+        return $this->render('MainBundle:Administracion:administracion_product_edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'producto' => $product,
+        ));
     }
 
     public function editPasswordUserAction(Request $request, $id) {

@@ -1,0 +1,22 @@
+<div id="add-product" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Producto</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form_product, { 'action': path('administracion_new_product')}) }}
+                {{ form_widget(form_product) }}
+                <br>
+                <div>
+                    <input class="btn btn-primary btn-block" type="submit" value="Crear Producto" />
+                </div>
+                {{ form_end(form_product) }}
+            </div>
+        </div>
+
+    </div>
+</div>

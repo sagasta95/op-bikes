@@ -1,0 +1,23 @@
+<div id="remove-product-{{ producto2.id }}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar Producto</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <br>
+                <span class="glyphicon glyphicon-exclamation-sign" style="color: orange; font-size: 80px;" ></span>
+                <br>
+                <br>
+                <p>
+                    ¿Desea eliminar definitivamente este producto?
+                </p>
+                <br>
+                <a href="{{ path('administracion_remove_product', { 'id': producto2.id } ) }}" class="btn btn-danger btn-block">Eliminar</a>
+                <button type="button" data-dismiss="modal" class="btn btn-warning btn-block">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
