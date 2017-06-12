@@ -6,6 +6,10 @@ administracion_show:
     path:     /administracion
     defaults: { _controller: MainBundle:Administracion:index }
     
+administracion_new_user:
+    path:     /administracion/new/user/
+    defaults: { _controller: MainBundle:Administracion:newUser }
+    
 administracion_remove_user:
     path:     /administracion/remove/user/{id}
     defaults: { _controller: MainBundle:Administracion:removeUser }
@@ -15,5 +19,17 @@ administracion_edit_user:
     defaults: { _controller: MainBundle:Administracion:editUser }
     
 administracion_edit_password_user:
-    path:     /administracion/edit/user-password/{id}
+    path:     /administracion/edit/user/password/{id}
     defaults: { _controller: MainBundle:Administracion:editPasswordUser }
+    
+administracion_new_category:
+    path:     /administracion/category/new
+    defaults: { _controller: MainBundle:Administracion:newCategory }
+    
+administracion_remove_category:
+    path:     /administracion/category/remove/{id}
+    defaults: { _controller: MainBundle:Administracion:removeCategory }
+    
+administracion_edit_category:
+    path:     /administracion/category/edit/{id}
+    defaults: { _controller: MainBundle:Administracion:editCategory }

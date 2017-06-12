@@ -1,0 +1,22 @@
+<div id="edit-category-{{ cat.id }}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modificar Categoría</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form_edit_cat, { 'action': path('administracion_edit_category', { 'id': cat.id })}) }}
+                {{ form_widget(form_edit_cat) }}
+                <br>
+                <div>
+                    <input class="btn btn-primary btn-block" type="submit" value="Editar Categoría" />
+                </div>
+                {{ form_end(form_edit_cat) }}
+            </div>
+        </div>
+
+    </div>
+</div>

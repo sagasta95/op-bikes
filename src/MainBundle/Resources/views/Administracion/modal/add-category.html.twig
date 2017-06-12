@@ -1,0 +1,22 @@
+<div id="add-category" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nueva Categoría</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form_cat, { 'action': path('administracion_new_category')}) }}
+                {{ form_widget(form_cat) }}
+                <br>
+                <div>
+                    <input class="btn btn-primary btn-block" type="submit" value="Crear Categoría" />
+                </div>
+                {{ form_end(form_cat) }}
+            </div>
+        </div>
+
+    </div>
+</div>

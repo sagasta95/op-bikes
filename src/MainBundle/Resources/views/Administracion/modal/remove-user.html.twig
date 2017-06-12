@@ -1,0 +1,25 @@
+<div id="remove-user-{{ user.id }}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar Usuario</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <br>
+                <span class="glyphicon glyphicon-exclamation-sign" style="color: orange; font-size: 80px;" ></span>
+                <br>
+                <br>
+                <p>
+                    ¿Desea eliminar definitivamente este usuario?
+                </p>
+                <br>
+                 <a href="{{ path('administracion_remove_user', { 'id': user.id } ) }}" type="button" class="btn btn-danger btn-block">Eliminar</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-warning btn-block">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
