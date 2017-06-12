@@ -1,0 +1,19 @@
+main_homepage:
+    path:     /
+    defaults: { _controller: MainBundle:Default:index }
+    
+administracion_show:
+    path:     /administracion
+    defaults: { _controller: MainBundle:Administracion:index }
+    
+administracion_remove_user:
+    path:     /administracion/remove/user/{id}
+    defaults: { _controller: MainBundle:Administracion:removeUser }
+    
+administracion_edit_user:
+    path:     /administracion/edit/user/{id}
+    defaults: { _controller: MainBundle:Administracion:editUser }
+    
+administracion_edit_password_user:
+    path:     /administracion/edit/user-password/{id}
+    defaults: { _controller: MainBundle:Administracion:editPasswordUser }

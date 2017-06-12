@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="tab-content">
+            <div id="adm-users" class="tab-pane fade in active">
+                <div class="col-lg-12">
+                    <h3>Administración de usuarios</h3>
+                </div>
+                <div class="col-md-9"  style="padding: 20px; padding-top: 10px; margin-top: 15px; margin-bottom: 30px;">
+                    <table class="col-md-12 table table-hover">
+                        <thead>
+                        <th>Activado</th>
+                        <th>Username</th>
+                        <th>Rol</th>
+                        <th>E-mail</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+                            {% for u in usuarios %}
+                                <tr>
+                                    <td style="vertical-align: middle;">
+                                        {% if u.enabled %}
+                                            <span class="glyphicon glyphicon-ok" style="color: green;"></span>
+                                        {% else %}
+                                            <span class="glyphicon glyphicon-remove" style="color: red;"></span>
+                                        {% endif %}
+                                    </td>
+                                    <td style="vertical-align: middle;">{{u.username}}</td>
+                                    <td style="vertical-align: middle;">
+                                        {% for rol in u.roles %}
+                                            {% if rol == 'ROLE_SUPER_ADMIN'%}
+                                                Administrador
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if u.roles | length == 1 %}
+                                            Usuario
+                                        {% endif %}
+                                    </td>
+                                    <td style="vertical-align: middle;">{{u.email}}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-warning btn-block" href="{{ path('administracion_edit_password_user', { 'id': u.id })}}">Cambiar contraseña</a></td>
+                                    <td style="vertical-align: middle;"><a href="{{ path('administracion_edit_user', { 'id': u.id })}}"><span class="glyphicon glyphicon-pencil" style="font-size: 20px;"></a></td>
+                                    <td style="vertical-align: middle;"><a onclick="return confirm('¿Seguro que desa eliminar definitivamente a este usuario?')"  href="{{ path('administracion_remove_user', {'id': u.id })}}"><b><span class="glyphicon glyphicon-trash" style="font-size: 20px;"></b></a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="adm-products" class="tab-pane fade">
+                <div class="col-lg-12">
+                    <h3>Administración de productos</h3>
+                </div>
+                <div class="col-md-9"  style="padding: 20px; padding-top: 10px; margin-top: 15px; margin-bottom: 30px;">
+
+                    hola
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin-top: 60px;">
+            <ul class="nav nav-pills nav-stacked" >
+                <li class="active"><a data-toggle="tab" href="#adm-users" >Administracion de usuarios</a></li>
+                <li><a data-toggle="tab" href="#adm-products">Administracion de productos</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
