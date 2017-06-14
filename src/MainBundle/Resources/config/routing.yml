@@ -2,6 +2,14 @@ main_homepage:
     path:     /
     defaults: { _controller: MainBundle:Default:index }
     
+producto:
+    path:     /list/{id}
+    defaults: { _controller: MainBundle:Producto:index , id: null}
+    
+producto_show:
+    path:     /producto/{id}
+    defaults: { _controller: MainBundle:Producto:show }
+    
 administracion_show:
     path:     /administracion
     defaults: { _controller: MainBundle:Administracion:index }

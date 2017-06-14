@@ -7,6 +7,7 @@ namespace MainBundle\Entity;
 use MainBundle\Entity\User;
 use MainBundle\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -31,7 +32,8 @@ class Product {
     protected $descripcion;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string")
+     * @Assert\File()
      */
     protected $img;
     

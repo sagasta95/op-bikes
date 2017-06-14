@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="row">
+            <div class="col-xs-4 item-photo">
+                <img style="max-width:100%; max-height: 500px;" src="{{ asset('uploads/img/' ~ producto.img) }}" />
+            </div>
+            <div class="col-xs-5" style="border:0px solid gray">
+                <h3>{{ producto.nombre }}</h3>    
+                <h5 style="color:#337ab7">vendido por <a href="#">{{producto.createdby}}</a></h5>
+                <h6 class="title-price"><small>PRECIO</small></h6>
+                <h3 style="margin-top:0px;">{{producto. precio | number_format(2, '.', ',')}} €</h3>
+
+                <!-- Detalles especificos del producto -->
+                <div class="section" style="padding-bottom:5px;">
+                    <h6 class="title-attr"><small>DESCRIPCIÓN</small></h6>                    
+                    <div>
+                        <p>
+                            {{producto.descripcion}}
+                        </p>
+                    </div>
+                </div>   
+                <div class="section" style="padding-bottom:20px;">
+                    <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro
+                    </button>
+                    {% if is_granted("ROLE_ADMIN") or user == producto.createdby %}
+                        <button type="button" class="btn btn-warning "  data-toggle="modal" data-target="#edit-product-{{ producto.id }}">
+                            <span class="glyphicon glyphicon-pencil" ></span>
+                        </button>
+                        {{ render(controller('MainBundle:Administracion:renderModalEditProduct', { 'id': producto.id })) }}
+                        <button type="button" class="btn btn-danger btn-blok" data-toggle="modal" data-target="#remove-product-{{ producto.id }}">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        {{ render(controller('MainBundle:Administracion:renderModalRemoveProduct', { 'id': producto.id })) }}
+                    {% endif %}
+                </div>                                        
+            </div>          
+            <div class="col-xs-12">
+                <div class="col-lg-12">
+                    <h3>Productos relacionados</h3>
+                </div>
+            </div>
+            <div class="col-xs-12">    
+
+                <div style="width:100%;border-top:1px solid silver; padding-top: 15px;">
+                    <div class="row">
+                        {% if ultimos_productos is not empty %}
+                            {% for u in ultimos_productos %}
+                                <div class="col-sm-3">
+                                    <article class="col-item">
+                                        <div class="photo">
+                                            <div class="options">
+                                                <a href="{{ path('producto_show', {'id': u.id } ) }}" class="btn btn-default">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                            <div class="options-cart">
+                                                <button class="btn btn-default" title="Add to cart">
+                                                    <span class="fa fa-shopping-cart" style="color: #FE2E2E;"></span>
+                                                </button>
+                                            </div>
+                                            <a  href="{{ path('producto_show', {'id': u.id } ) }}"> <img src="{{ asset('uploads/img/' ~ u.img) }}" class="img-responsive" style="height: 150px;"/> </a>
+                                        </div>
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="price-details col-md-6">
+                                                    <p class="details">
+                                                        {{ u.nombre|length > 30 ? u.nombre|slice(0, 30) ~ '...' : u.nombre  }}
+                                                    </p>
+                                                    <h1>{{u.category}}</h1>
+                                                    <span class="price-new">{{u.precio | number_format(2, ',', '.')}} €</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+
+                            <p>No hay productos relacionados</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>		
+    </div>
+{% endblock %}

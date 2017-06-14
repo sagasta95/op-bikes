@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use MainBundle\Form\UserFormType;
 use MainBundle\Form\CategoryFormType;
 use MainBundle\Form\NewProductFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use MainBundle\Entity\Category;
 use MainBundle\Entity\User;
 use MainBundle\Entity\Product;
@@ -56,6 +57,30 @@ class AdministracionController extends Controller {
         return $this->render('MainBundle:Administracion:modal/edit-category.html.twig', array(
                     'cat' => $category,
                     'form_edit_cat' => $form_edit_cat->createView()
+        ));
+    }
+
+    public function renderModalEditProductAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $producto = $em->getRepository('MainBundle:Product')->find($id);
+
+        $form_edit_prod = $this->createForm('MainBundle\Form\EditProductFormType', $producto);
+
+        return $this->render('MainBundle:Administracion:modal/edit-product.html.twig', array(
+                    'producto' => $producto,
+                    'form_edit_prod' => $form_edit_prod->createView()
+        ));
+    }
+
+    public function renderModalNewProductAction() {
+
+        $producto = new Product();
+
+        $form_product = $this->createForm('MainBundle\Form\NewProductFormType', $producto);
+
+        return $this->render('MainBundle:Administracion:modal/add-product.html.twig', array(
+                    'form_product' => $form_product->createView()
         ));
     }
 
@@ -234,12 +259,27 @@ class AdministracionController extends Controller {
             $product->setCreatedBy($this->getUser());
             $product->setCreatedAt(new \DateTime());
 
+            $file = $product->getImg();
+
+            // Generate a unique name for the file before saving it
+            $fileName = md5(uniqid()) . '.jpg';
+
+            // Move the file to the directory where brochures are stored
+            $file->move(
+                    $this->getParameter('img_directory'), $fileName
+            );
+            $product->setImg($fileName);
+
             $em->persist($product);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Producto creado con exito');
 
-            return $this->redirect($this->generateUrl('administracion_show'));
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('administracion_show'));
+            } else {
+                return $this->redirect($this->generateUrl('producto_show', array('id' => $product->getId())));
+            }
         }
         return $this->redirect($this->generateUrl('administracion_show'));
     }
@@ -264,7 +304,7 @@ class AdministracionController extends Controller {
         }
         return $this->redirect($this->generateUrl('administracion_show'));
     }
-    
+
     public function editProductAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
@@ -284,7 +324,7 @@ class AdministracionController extends Controller {
 
             return $this->redirect($this->generateUrl('administracion_show'));
         }
-        
+
         return $this->render('MainBundle:Administracion:administracion_product_edit.html.twig', array(
                     'form' => $form->createView(),
                     'producto' => $product,
