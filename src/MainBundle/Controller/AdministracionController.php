@@ -163,7 +163,11 @@ class AdministracionController extends Controller {
 
         $this->get('session')->getFlashBag()->add('notice', 'Producto eliminado con exito');
 
-        return $this->redirect($this->generateUrl('administracion_show'));
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirect($this->generateUrl('administracion_show'));
+        } else {
+            return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        }
     }
 
     public function newCategoryAction(Request $request) {
@@ -234,7 +238,7 @@ class AdministracionController extends Controller {
 
             $pw = $form->get('password')->getData();
             $user->setPlainPassword($pw);
-
+            $user->setN_products(0);
             $em->persist($user);
             $em->flush();
 
@@ -248,6 +252,7 @@ class AdministracionController extends Controller {
     public function newProductAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
         $product = new Product();
 
         $form = $this->createForm('MainBundle\Form\NewProductFormType', $product);
@@ -256,7 +261,13 @@ class AdministracionController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $product->setCreatedBy($this->getUser());
+            if (!$this->isGranted('ROLE_ADMIN')) {
+                $product->setCreatedBy($this->getUser());
+                $user->setN_products($user->getN_products() + 1);
+                $em->persist($user);
+                $em->flush();
+            }
+
             $product->setCreatedAt(new \DateTime());
 
             $file = $product->getImg();
@@ -274,14 +285,12 @@ class AdministracionController extends Controller {
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Producto creado con exito');
-
-            if ($this->isGranted('ROLE_ADMIN')) {
-                return $this->redirect($this->generateUrl('administracion_show'));
-            } else {
-                return $this->redirect($this->generateUrl('producto_show', array('id' => $product->getId())));
-            }
         }
-        return $this->redirect($this->generateUrl('administracion_show'));
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirect($this->generateUrl('administracion_show'));
+        } else {
+            return $this->redirect($this->generateUrl('producto_show', array('id' => $product->getId())));
+        }
     }
 
     public function editCategoryAction(Request $request, $id) {
@@ -307,33 +316,33 @@ class AdministracionController extends Controller {
 
     public function editProductAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
+        $categorias = $em->getRepository('MainBundle:Category')->findAll();
         $product = $em->getRepository('MainBundle:Product')->find($id);
 
         $form = $this->createForm('MainBundle\Form\EditProductFormType', $product);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
 
             $product->setUpdatedAt(new \DateTime());
             $em->persist($product);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Producto modificado con exito');
-
-            return $this->redirect($this->generateUrl('administracion_show'));
+            
+                   return $this->redirect($this->generateUrl('producto_show', array('id' => $product->getId())));
         }
-
         return $this->render('MainBundle:Administracion:administracion_product_edit.html.twig', array(
                     'form' => $form->createView(),
                     'producto' => $product,
+                    'categorias' => $categorias
         ));
     }
 
     public function editPasswordUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
+        $categorias = $em->getRepository('MainBundle:Category')->findAll();
         $user = $em->getRepository('MainBundle:User')->find($id);
 
         $form = $this->createForm('MainBundle\Form\UserPasswordFormType', $user);
@@ -355,6 +364,7 @@ class AdministracionController extends Controller {
         return $this->render('MainBundle:Administracion:administracion_user_password_edit.html.twig', array(
                     'form' => $form->createView(),
                     'user' => $user,
+                    'categorias' => $categorias
         ));
     }
 

@@ -12,135 +12,28 @@
         {% block stylesheets %}
             <style>
                 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
-                /* Animation.css*/
-                @import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
-
-                div.bhoechie-tab-container{
-                    z-index: 10;
-                    background-color: #ffffff;
-                    padding: 0 !important;
-                    border-radius: 4px;
-                    -moz-border-radius: 4px;
-                    border:1px solid #ddd;
-                    margin-top: 20px;
-                    margin-left: 50px;
-                    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-                    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-                    -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-                    background-clip: padding-box;
-                    opacity: 0.97;
-                    filter: alpha(opacity=97);
-                }
-                div.bhoechie-tab-menu{
-                    padding-right: 0;
-                    padding-left: 0;
-                    padding-bottom: 0;
-                }
-                div.bhoechie-tab-menu div.list-group{
-                    margin-bottom: 0;
-                }
-                div.bhoechie-tab-menu div.list-group>a{
-                    margin-bottom: 0;
-                }
-                div.bhoechie-tab-menu div.list-group>a .glyphicon,
-                div.bhoechie-tab-menu div.list-group>a .fa {
-                    color: #FE2E2E;
-                }
-                div.bhoechie-tab-menu div.list-group>a:first-child{
-                    border-top-right-radius: 0;
-                    -moz-border-top-right-radius: 0;
-                }
-                div.bhoechie-tab-menu div.list-group>a:last-child{
-                    border-bottom-right-radius: 0;
-                    -moz-border-bottom-right-radius: 0;
-                }
-                div.bhoechie-tab-menu div.list-group>a.active,
-                div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
-                div.bhoechie-tab-menu div.list-group>a.active .fa{
-                    background-color: #FE2E2E;
-                    background-image: #FE2E2E;
-                    color: #ffffff;
-                }
-                div.bhoechie-tab-menu div.list-group>a.active:after{
-                    content: '';
-                    position: absolute;
-                    left: 100%;
-                    top: 50%;
-                    margin-top: -13px;
-                    border-left: 0;
-                    border-bottom: 13px solid transparent;
-                    border-top: 13px solid transparent;
-                    border-left: 10px solid #FE2E2E;
-                }
-
-                div.bhoechie-tab-content{
-                    background-color: #ffffff;
-                    /* border: 1px solid #eeeeee; */
-                    padding-left: 20px;
-                    padding-top: 10px;
-                }
-
-                div.bhoechie-tab div.bhoechie-tab-content:not(.active){
-                    display: none;
-                }
 
                 .col-item {
                     border: 1px solid #E1E1E1;
+                    border-radius: 15px;
                     background: #FFF;
                     margin-bottom:12px;
                 }
-                .col-item .options {
-                    position:absolute;
-                    top:6px;
-                    right:22px;
+                .col-item:hover {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 }
                 .col-item .photo {
                     overflow: hidden;
+                    border-radius: 15px 15px 0 0;
                 }
-                .col-item .photo .options {
-                    display:none;
-                }
+
                 .col-item .photo img {
-                    margin: 0 auto;
                     width: 100%;
                 }
 
-                .col-item .options-cart {
-                    position:absolute;
-                    left:22px;
-                    top:6px;
-                    display:none;
-                }
                 .col-item .photo:hover .options,
                 .col-item .photo:hover .options-cart {
                     display:block;
-                    -webkit-animation: fadeIn .5s ease;
-                    -moz-animation: fadeIn .5s ease;
-                    -ms-animation: fadeIn .5s ease;
-                    -o-animation: fadeIn .5s ease;
-                    animation: fadeIn .5s ease;
-                }
-                .col-item .options-cart-round {
-                    position:absolute;
-                    left:42%;
-                    top:22%;
-                    display:none;
-                }
-                .col-item .options-cart-round button {
-                    border-radius: 50%;
-                    padding:14px 16px;
-
-                }
-                .col-item .options-cart-round button .fa {
-                    font-size:22px;
-                }
-                .col-item .photo:hover .options-cart-round {
-                    display:block;
-                    -webkit-animation: fadeInDown .5s ease;
-                    -moz-animation: fadeInDown .5s ease;
-                    -ms-animation: fadeInDown .5s ease;
-                    -o-animation: fadeInDown .5s ease;
-                    animation: fadeInDown .5s ease;
                 }
                 .col-item .info {
                     padding: 10px;
@@ -155,71 +48,200 @@
                     line-height: 20px;
                     margin: 0;
                     float:left;
+                    color: #AAA;
                 }
                 .col-item .price-details .details {
                     margin-bottom: 0px;
-                    font-size:12px;
-                }
-                .col-item .price-details span {
-                    float:right;
+                    font-size:14px;
                 }
                 .col-item .price-details .price-new {
-                    font-size:16px;
-                }
-                .col-item .price-details .price-old {
-                    font-size:18px;
-                    text-decoration:line-through;
-                }
-                .col-item .separator {
-                    border-top: 1px solid #E1E1E1;
+                    font-size:12px;
+                    color: #08C;
                 }
 
-                .col-item .clear-left {
-                    clear: left;
+                .stylish-input-group .input-group-addon{
+                    background: white !important; 
                 }
-                .col-item .separator a {
-                    text-decoration:none;
+                .stylish-input-group .form-control{
+                    border-right:0; 
+                    box-shadow:0 0 0; 
+                    border-color:#ccc;
                 }
-                .col-item .separator p {
-                    margin-bottom: 0;
-                    margin-top: 6px;
+                .stylish-input-group button{
+                    border:0;
+                    background:transparent;
+                }
+                .em, .em2{
+                    color: white;
+                }
+                .m:hover .em, .m2:hover .em2 {
+                    color: red;
+                }
+
+                .row {
+                    margin-left:0;
+                    margin-right:0;
+                }
+
+                .item h4 a {
+                    color: #333;
+                }
+
+                .item img.image {
+                    max-width: 100%;
+                    margin-top: 9px;
+                }
+
+                .info {
+                    padding:4px;
+                }
+
+                /* Isotope Transitions
+                ------------------------------- */
+                .isotope,
+                .isotope .item {
+                    -webkit-transition-duration: 0.8s;
+                    -moz-transition-duration: 0.8s;
+                    -ms-transition-duration: 0.8s;
+                    -o-transition-duration: 0.8s;
+                    transition-duration: 0.8s;
+                }
+
+                .isotope {
+                    -webkit-transition-property: height, width;
+                    -moz-transition-property: height, width;
+                    -ms-transition-property: height, width;
+                    -o-transition-property: height, width;
+                    transition-property: height, width;
+                }
+
+                .isotope .item {
+                    -webkit-transition-property: -webkit-transform, opacity;
+                    -moz-transition-property:    -moz-transform, opacity;
+                    -ms-transition-property:     -ms-transform, opacity;
+                    -o-transition-property:         top, left, opacity;
+                    transition-property:         transform, opacity;
+                }
+
+
+                /* responsive media queries */
+
+                @media (max-width: 768px) {
+                    header h1 small {
+                        display: block;
+                    }
+
+                    header div.description {
+                        padding-top: 9px;
+                        padding-bottom: 4px;
+                    }
+
+                    .isotope .item {
+                        position: static ! important;
+                        -webkit-transform: translate(0px, 0px) ! important;
+                        -moz-transform: translate(0px, 0px) ! important;
+                        transform: translate(0px, 0px) ! important;
+                    }
+                }
+
+
+
+
+                /* Style the Image Used to Trigger the Modal */
+                .imp{
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+
+                .imp:hover {opacity: 0.7;}
+
+                /* The Modal (background) */
+                .modal {
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    padding-top: 100px; /* Location of the box */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgb(0,0,0); /* Fallback color */
+                    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+                }
+
+                /* Modal Content (Image) */
+                .modal-content {
+                    margin: auto;
+                    display: block;
+                    width: 80%;
+                    max-width: 700px;
+                }
+
+                /* Caption of Modal Image (Image Text) - Same Width as the Image */
+                #caption {
+                    margin: auto;
+                    display: block;
+                    width: 80%;
+                    max-width: 700px;
                     text-align: center;
+                    color: #ccc;
+                    padding: 10px 0;
+                    height: 150px;
                 }
 
-                .col-item .separator p i {
-                    margin-right: 5px;
+                /* Add Animation - Zoom in the Modal */
+                .modal-content, #caption { 
+                    -webkit-animation-name: zoom;
+                    -webkit-animation-duration: 0.6s;
+                    animation-name: zoom;
+                    animation-duration: 0.6s;
                 }
-                .col-item .btn-add {
-                    width: 60%;
-                    float: left;
+
+                @-webkit-keyframes zoom {
+                    from {-webkit-transform:scale(0)} 
+                    to {-webkit-transform:scale(1)}
                 }
-                .col-item .btn-add a {
-                    display:inline-block !important;
+
+                @keyframes zoom {
+                    from {transform:scale(0)} 
+                    to {transform:scale(1)}
                 }
-                .col-item .btn-add {
-                    border-right: 1px solid #E1E1E1;
+
+                /* The Close Button */
+                .close {
+                    position: absolute;
+                    top: 15px;
+                    right: 35px;
+                    color: #f1f1f1;
+                    font-size: 40px;
+                    font-weight: bold;
+                    transition: 0.3s;
                 }
-                .col-item .btn-details {
-                    width: 40%;
-                    float: left;
-                    padding-left: 10px;
+
+                .close:hover,
+                .close:focus {
+                    color: #bbb;
+                    text-decoration: none;
+                    cursor: pointer;
                 }
-                .col-item .btn-details a {
-                    display:inline-block !important;
+
+                /* 100% Image Width on Smaller Screens */
+                @media only screen and (max-width: 700px){
+                    .modal-content {
+                        width: 100%;
+                    }
                 }
-                .col-item .btn-details a:first-child {
-                    margin-right:12px;
-                }
+
             </style>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body style="background-color: #ededed;">
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #08C; border-bottom: 0px">
+            <div class="container" style="margin-left: 0; margin-right: 0; width: 100%;">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
+                <div class="navbar-header" >
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -227,56 +249,63 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="{{asset('assets/img/op-bikes-logo2_1.png')}}" style="width: 170px;"></a>
+                    <a class="navbar-brand" href="{{ path('main_homepage') }}"><img src="{{asset('assets/img/op-bikes-logo2_1.png')}}" style="width: 170px;"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="{{ path('main_homepage') }}">Inicio</a>
+                        <li class="dropdown m">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-menu-hamburger em"></span>
+                                <span class="caret em"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for c in categorias%}
+                                    <li>
+                                        <a href="{{ path('main_homepage', {'id': c.id }) }}">
+                                            {{c.nombre}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </li>
-                        <li>
-                            <a href="{{ path('producto') }}">Productos</a>
-                        </li>
-                        <li>
+                        <li class="m">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 {% if not is_granted("ROLE_ADMIN") %}
-                                    <a href="" data-toggle="modal" data-target="#add-product">Vender</a>
+                                    <a href="" data-toggle="modal" data-target="#add-product">
+                                        <span class="glyphicon glyphicon-tag em"></span>
+                                    </a>
                                 {% endif %}
                             {% else %}
-                                <a href="{{path('fos_user_security_login')}}">Vender</a>
-                            {% endif %}
+                                <a href="{{path('fos_user_security_login')}}"><span class="glyphicon glyphicon-tag em"></span></a>
+                                {% endif %}
+                        </li>
+                        <li>
+                            <form action="{{ path('main_search') }}">
+                                <div class="input-group stylish-input-group" style="width: 200px; padding-top: 8px; padding-left: 10px;">
+
+                                    <input type="text" class="form-control" name="search" placeholder="Search" >
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>  
+                                    </span>
+
+                                </div>
+                            </form>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li class="dropdown">
+                            <li class="dropdown m2">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <b>
-                                        {{app.user.username}}
-                                    </b>
-
-                                    <span class="caret"></span>
+                                    <span class="glyphicon glyphicon-user em2"></span>
+                                    <span class="caret em2"></span>
                                 </a>
                                 <ul id="login-dp" class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ path('fos_user_profile_show') }}">
-                                            Mi perfil
-                                        </a>
-                                        <a href="{{ path('fos_user_security_logout') }}">
-                                            Cerrar sesión
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                                    <span class="caret"></span>
-                                </a>
-                                <ul id="login-dp" class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ path('fos_user_profile_show') }}">
-                                            Mi perfil
+                                    <li class="text-center">
+                                        <a href="{{ path('fos_user_profile_show') }}" style="margin-top: 5px;">
+                                            <span class="glyphicon glyphicon-user" style="color: #08C; font-size: 25px; margin: auto auto;"></span><br>
+                                            {{app.user.username}}
                                         </a>
                                         <a href="{{ path('fos_user_security_logout') }}">
                                             Cerrar sesión
@@ -285,24 +314,40 @@
                                 </ul>
                             </li>
                             {% if is_granted("ROLE_ADMIN") %}
-                                <li>
+                                <li class="m2">
                                     <a href="{{ path('administracion_show')}}">
-                                        <span class="glyphicon glyphicon-cog"></span>
+                                        <span class="glyphicon glyphicon-cog em2"></span>
                                     </a>
+                                </li>
+                            {% else %}
+                                <li class="dropdown m2">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-shopping-cart em2"></span>
+                                        <span class="caret em2"></span>
+                                    </a>
+                                    <ul id="login-dp" class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path('fos_user_profile_show') }}">
+                                                Mi perfil
+                                            </a>
+                                            <a href="{{ path('fos_user_security_logout') }}">
+                                                Cerrar sesión
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             {% endif %}
                         {% else %}
-                            <li>
+                            <li style="margin-right: 15px;">
                                 <p class="navbar-btn">
-                                    <a class="btn btn-success" href="{{ path('fos_user_security_login') }}">Iniciar sesión</a>
+                                    <a class="btn btn-default" href="{{ path('fos_user_security_login') }}">Iniciar sesión</a>
                                 </p>
                             </li>
-                            <
                         {% endif %}
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container" >
             {% for flashMessage in app.session.flashbag.get('notice') %}
                 <div class="alert alert-success">
                     {{ flashMessage }}
@@ -312,11 +357,10 @@
                 {{ render(controller('MainBundle:Administracion:renderModalNewProduct')) }}
             {% endif %}
             {% block body %} {% endblock %}
-            <hr>
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p>Copyright © op-bikes 2017</p>
+                        <p></p>
                     </div>
                 </div>
             </footer>
@@ -324,6 +368,40 @@
         {% block javascripts %}
             <script src="{{asset('assets/js/jquery.js')}}"></script>
             <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+            <script>
+                $.getScript('//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js', function () {
+
+                    /* activate jquery isotope */
+                    $('#posts').imagesLoaded(function () {
+                        $('#posts').isotope({
+                            itemSelector: '.item'
+                        });
+                    });
+
+                });
+
+                // Get the modal
+                var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+                var img_id = document.getElementById('myModal').getAttribute('data-producto');
+                var img = document.getElementById(img_id);
+                var modalImg = document.getElementById("img01");
+                var captionText = document.getElementById("caption");
+                img.onclick = function () {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                    captionText.innerHTML = this.alt;
+                };
+
+// Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                    modal.style.display = "none";
+                };
+            </script>
         {% endblock %}
     </body>
 </html>

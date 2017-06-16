@@ -1,12 +1,13 @@
 <div id="adm-products" class="tab-pane fade">
-    <div class="col-lg-12">
-        <h3>Administración de productos</h3>
-    </div>
-    <div class="col-md-9"  style="padding: 20px; margin-bottom: 30px;">
+    <div class="col-md-9"  style="border: 1px solid lightblue; border-radius: 10px; padding: 20px; padding-top: 10px; margin-top: 15px; margin-bottom: 30px; background-color: white;">
+        <div class="row" style="padding-bottom: 0px;">
+            <h4 class="col-md-11" style="padding-top: 12px;" >Administración de productos</h4>
+        </div>
         <table class="col-md-12 table table-hover">
             <thead>
             <th></th>
             <th>Nombre</th>
+            <th>Precio</th>
             <th>Categoría</th>
             <th>Creado por</th>
             <th>Creación</th>
@@ -22,15 +23,16 @@
                     {% for c in productos['en_venta'] %}
                         <tr>
                             <td style="vertical-align: middle;">
-                                <img src="{{ asset('uploads/img/' ~ c.img) }}" width="50px" height="50px" class="img-circle" style="border: solid 2px black;">
+                                <img src="{{ asset('uploads/img/' ~ c.img) }}" width="50px" height="50px" class="img-rounded" circlestyle="border: solid 0px black;">
                             </td>
-                            <td style="vertical-align: middle;">{{c.nombre}}</td>
+                            <td style="vertical-align: middle; color: black;" ><a href="{{path('producto_show', { 'id': c.id } )}}" style="color: black;" >{{c.nombre}}</a></td>
+                            <td style="vertical-align: middle;">{{c.precio | number_format(2, ',', '.')}}€</td>
                             <td style="vertical-align: middle;">{{c.category}}</td>
                             <td style="vertical-align: middle;">
                                 {% if c.createdby %}
                                     {{c.createdby.username }}
                                 {% else %}
-                                    -
+                                    OPBIKES
                                 {% endif %}
                             </td>
                             <td style="vertical-align: middle;">{{c.createdat | date('d-m-Y')}}</td>
