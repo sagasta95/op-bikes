@@ -10,6 +10,26 @@ producto_show:
     path:     /producto/{id}
     defaults: { _controller: MainBundle:Producto:show }
     
+cart_show:
+    path:     /mycart
+    defaults: { _controller: MainBundle:Cart:show }
+    
+cart_buy:
+    path:     /mycart/buy
+    defaults: { _controller: MainBundle:Cart:buy }
+    
+producto_buy_revert:
+    path:     /mysells/remove/{id}
+    defaults: { _controller: MainBundle:Producto:removeVenta }
+    
+cart_add:
+    path:     /mycart/add/{id}
+    defaults: { _controller: MainBundle:Cart:addToCart }
+    
+cart_remove:
+    path:     /mycart/remove/{id}
+    defaults: { _controller: MainBundle:Cart:removeToCart }
+
 administracion_show:
     path:     /administracion
     defaults: { _controller: MainBundle:Administracion:index }

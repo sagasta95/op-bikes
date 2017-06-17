@@ -1,0 +1,25 @@
+<div id="product-buy-revert-{{ p.id }}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Revertir venta</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <br>
+                <span class="glyphicon glyphicon-exclamation-sign" style="color: orange; font-size: 80px;" ></span>
+                <br>
+                <br>
+                <p>
+                    ¿Has tenido problemas con el comprador, desea volver a poner a la venta este producto?
+                </p>
+                <br>
+                 <a href="{{ path('producto_buy_revert', { 'id': p.id } ) }}" type="button" class="btn btn-primary btn-block">Poner a la venta</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-default btn-block">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

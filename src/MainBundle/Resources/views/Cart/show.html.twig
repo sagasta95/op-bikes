@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12"  style="border: 1px solid lightblue; border-radius: 10px; padding: 20px; padding-top: 10px; margin-top: 15px; margin-bottom: 30px; background-color: white;">
+            <div class="row" style="padding-bottom: 0px;">
+                <h4 class="col-md-11" style="padding-top: 12px;" >Mi Carro</h4>
+            </div>
+            <table class="col-md-12 table table-hover">
+                <thead>
+                <th></th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Creado por</th>
+                <th>Precio</th>
+                <th style="width: 50px;"></th>
+                </thead>
+                <tbody>
+                    {% if cart is not empty %}
+                        {% set total = 0 %}
+                        {% for c in cart %}
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img src="{{ asset('uploads/img/' ~ c.product.img) }}" width="50px" height="50px" class="img-rounded" circlestyle="border: solid 0px black;">
+                                </td>
+                                <td style="vertical-align: middle; color: black;" ><a href="{{path('producto_show', { 'id': c.product.id } )}}" style="color: black;" >{{c.product.nombre}}</a></td>
+
+                                <td style="vertical-align: middle;">{{c.product.category}}</td>
+                                <td style="vertical-align: middle;">
+                                    {% if c.product.createdby %}
+                                        {{c.product.createdby.username }}
+                                    {% else %}
+                                        OPBIKES
+                                    {% endif %}
+                                </td>
+                                <td style="vertical-align: middle;">{{c.product.precio | number_format(2, ',', '.')}} €</td>
+                                <td style="vertical-align: middle;">
+                                    <a href="{{ path('cart_remove', { 'id': c.product.id } ) }}" class="btn btn-danger btn-blok">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% set total = total + c.product.precio %}
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><b>Total:</b></td>
+                            <td><b>{{total  | number_format(2, ',', '.')}} €</b></td>
+                            <td></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Tu carro está vacio</td>
+                        </tr>
+                    {% endif%}
+                </tbody>
+            </table>
+            {% if cart is not empty %}
+                <div class="col-md-12">
+                    <a href="{{ path('cart_buy') }}" class="btn btn-success btn-block">
+                        <span class="">Finalizar compra</span>
+                    </a> 
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

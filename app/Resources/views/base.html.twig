@@ -208,7 +208,7 @@
                 }
 
                 /* The Close Button */
-                .close {
+                .close2 {
                     position: absolute;
                     top: 15px;
                     right: 35px;
@@ -218,8 +218,8 @@
                     transition: 0.3s;
                 }
 
-                .close:hover,
-                .close:focus {
+                .close2:hover,
+                .close2:focus {
                     color: #bbb;
                     text-decoration: none;
                     cursor: pointer;
@@ -230,6 +230,14 @@
                     .modal-content {
                         width: 100%;
                     }
+                }
+                .menu-cat{
+                    padding: 10px 0;
+                }
+                .menu-cat li{
+                    height: 25px;
+                    font-size: 15px;
+                    margin: 6px 0;
                 }
 
             </style>
@@ -258,7 +266,7 @@
                                 <span class="glyphicon glyphicon-menu-hamburger em"></span>
                                 <span class="caret em"></span>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu menu-cat" style=" border-radius: 0 0 15px 15px;">
                                 {% for c in categorias%}
                                     <li>
                                         <a href="{{ path('main_homepage', {'id': c.id }) }}">
@@ -283,7 +291,7 @@
                             <form action="{{ path('main_search') }}">
                                 <div class="input-group stylish-input-group" style="width: 200px; padding-top: 8px; padding-left: 10px;">
 
-                                    <input type="text" class="form-control" name="search" placeholder="Search" >
+                                    <input type="text" class="form-control" name="search" placeholder="Buscar productos" >
                                     <span class="input-group-addon">
                                         <button type="submit">
                                             <span class="glyphicon glyphicon-search"></span>
@@ -321,20 +329,9 @@
                                 </li>
                             {% else %}
                                 <li class="dropdown m2">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="{{ path('cart_show') }}" >
                                         <span class="glyphicon glyphicon-shopping-cart em2"></span>
-                                        <span class="caret em2"></span>
                                     </a>
-                                    <ul id="login-dp" class="dropdown-menu">
-                                        <li>
-                                            <a href="{{ path('fos_user_profile_show') }}">
-                                                Mi perfil
-                                            </a>
-                                            <a href="{{ path('fos_user_security_logout') }}">
-                                                Cerrar sesión
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             {% endif %}
                         {% else %}

@@ -7,7 +7,7 @@
                 <div id="myModal" class="modal" alt="{{producto.nombre}}" data-producto="{{producto.id}}">
 
                     <!-- The Close Button -->
-                    <span class="close" onclick="document.getElementById('myModal').style.display = 'none'">&times;</span>
+                    <span class="close2" onclick="document.getElementById('myModal').style.display = 'none'">&times;</span>
 
                     <!-- Modal Content (The Image) -->
                     <img class="modal-content" id="img01">
@@ -17,7 +17,7 @@
                 </div>
                 <img id="{{producto.id}}" class="imp" style="max-width:100%; max-height: 500px; border-radius: 15px;" src="{{ asset('uploads/img/' ~ producto.img) }}" />
             </div>
-            <div class="col-xs-5" style="border:0px solid gray">
+            <div class="col-xs-8" style="border:1px solid lightblue; background-color: white; border-radius: 15px;">
                 <h3>{{ producto.nombre }}</h3>    
                 <h5 style="color:#337ab7">vendido por 
                     <a href="#">
@@ -41,21 +41,32 @@
                     </div>
                 </div>   
                 <div class="section" style="padding-bottom:20px;">
-                    {% if user != producto.createdby and not is_granted("ROLE_ADMIN") %}
-                        <button class="btn btn-success">
-                            <span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 
-                            Agregar al carro
-                        </button>
-                    {% endif %}
-                    {% if is_granted("ROLE_ADMIN") or user == producto.createdby %}
-                        <button type="button" class="btn btn-warning "  data-toggle="modal" data-target="#edit-product-{{ producto.id }}">
-                            <span class="glyphicon glyphicon-pencil" ></span>
-                        </button>
-                        {{ render(controller('MainBundle:Administracion:renderModalEditProduct', { 'id': producto.id })) }}
-                        <button type="button" class="btn btn-danger btn-blok" data-toggle="modal" data-target="#remove-product-{{ producto.id }}">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        {{ render(controller('MainBundle:Administracion:renderModalRemoveProduct', { 'id': producto.id })) }}
+                    {% if not producto.buyat %}
+                        {% if user != producto.createdby and not is_granted("ROLE_ADMIN") %}
+                            {% if not incart %}
+                                <a href="{{ path('cart_add', {'id': producto.id }) }}" class="btn btn-success">
+                                    <span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 
+                                    Agregar al carro
+                                </a>
+                            {% else %}
+                                <a href="{{ path('cart_remove', {'id': producto.id }) }}" class="btn btn-danger">
+                                    <span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 
+                                    Quitar del carro
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        {% if is_granted("ROLE_ADMIN") or user == producto.createdby %}
+                            <button type="button" class="btn btn-warning "  data-toggle="modal" data-target="#edit-product-{{ producto.id }}">
+                                <span class="glyphicon glyphicon-pencil" ></span>
+                            </button>
+                            {{ render(controller('MainBundle:Administracion:renderModalEditProduct', { 'id': producto.id })) }}
+                            <button type="button" class="btn btn-danger btn-blok" data-toggle="modal" data-target="#remove-product-{{ producto.id }}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            {{ render(controller('MainBundle:Administracion:renderModalRemoveProduct', { 'id': producto.id })) }}
+                        {% endif %}
+                    {% else %}
+                        <text style="color: red;">Este producto no esta disponible</text>
                     {% endif %}
                 </div>                                        
             </div>          
@@ -64,9 +75,9 @@
                     <h3>Productos relacionados</h3>
                 </div>
             </div>
-            <div class="col-xs-12">    
+            <div class="col-md-12">    
                 <div style="width:100%;border-top:1px solid silver; padding-top: 15px;">
-                    <div id="posts" class="row">
+                    <div class="row">
                         {% set c = 0 %}
                         {% if ultimos_productos is not empty %}
                             {% for u in ultimos_productos %}
